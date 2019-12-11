@@ -1,0 +1,3 @@
+insert into user_account(id, first_Name, last_Name, username, email, password, account_Non_Expired, account_Non_Locked, credentials_Non_Expired, enabled) values (1, 'Leonardo', 'Marques', 'leochassot3', 'leonardo.c.marques3@gmail.com', '$2a$10$eLM/8ETTN8H.w7V/JfZfZe/nFgr9R7k3NetFErSrA5tpobvKNPyde', true, true, true, true);
+insert into user_authority(id, authority) values(1, 'admin');
+insert into user_role(user_id, role_id) values(1, 1);
