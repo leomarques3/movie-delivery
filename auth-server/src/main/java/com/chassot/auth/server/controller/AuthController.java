@@ -16,19 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final TokenService tokenService;
+    private final TokenService jwtTokenServiceImpl;
 
     @Autowired
-    public AuthController(TokenService tokenService) {
-        this.tokenService = tokenService;
+    public AuthController(TokenService jwtTokenServiceImpl) {
+        this.jwtTokenServiceImpl = jwtTokenServiceImpl;
     }
 
     @PostMapping("/login")
     public ResponseEntity login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String token = tokenService.generateToken(authentication);
+        String token = jwtTokenServiceImpl.generateToken(authentication);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", SecurityConstants.JWT_TOKEN_PREFIX + " " + token);
         return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
     }
+
 }

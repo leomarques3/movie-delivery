@@ -28,6 +28,20 @@ public class UserAccount implements UserDetails {
     @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<UserAuthority> authorities;
 
+    public UserAccount() {
+    }
+
+    public UserAccount(String firstName, String lastName, String username, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.accountNonExpired = true;
+        this.accountNonLocked = true;
+        this.credentialsNonExpired = true;
+        this.enabled = true;
+    }
+
     public Long getId() {
         return id;
     }

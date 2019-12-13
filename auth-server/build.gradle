@@ -1,3 +1,7 @@
+plugins {
+	id 'jacoco'
+}
+
 sourceCompatibility = '11'
 
 dependencies {
@@ -19,4 +23,22 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+jacoco {
+	toolVersion = "0.8.5"
+	reportsDir = file("$buildDir/reports/jacoco")
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			element = 'CLASS'
+			limit {
+				counter = 'LINE'
+				value = 'COVEREDRATIO'
+				minimum = 1.0
+			}
+		}
+	}
 }

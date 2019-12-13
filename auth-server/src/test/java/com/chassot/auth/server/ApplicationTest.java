@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = {Application.class})
-public class ApplicationTest {
+class ApplicationTest {
 
 	@DisplayName("Default main method test.")
 	@Test
-	public void mainTest() {
+	void mainTest() {
 		Application.main(new String[] {});
 	}
 
