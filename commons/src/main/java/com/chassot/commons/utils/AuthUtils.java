@@ -1,8 +1,10 @@
 package com.chassot.commons.utils;
 
 import com.chassot.commons.constants.CommonConstants;
+import com.chassot.commons.constants.SecurityConstants;
 import com.chassot.commons.dto.ExceptionDto;
 import com.google.gson.Gson;
+import io.jsonwebtoken.Jwts;
 import org.springframework.http.MediaType;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -50,6 +52,20 @@ public final class AuthUtils {
         response.setStatus(statusCode);
         out.print(exceptionResponse);
         out.flush();
+    }
+
+    public static Boolean isValidToken(String secret, String token) {
+        try {
+            Jwts
+                    .parser()
+                    .setSigningKey(secret.getBytes(StandardCharsets.UTF_8.name()))
+                    .requireAudience(SecurityConstants.JWT_TOKEN_AUDIENCE)
+                    .requireIssuer(SecurityConstants.JWT_TOKEN_ISSUER)
+                    .parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package com.chassot.commons.form;
+package com.chassot.auth.server.model.form;
 
 public class SignUpForm {
 
@@ -7,6 +7,9 @@ public class SignUpForm {
     private String username;
     private String email;
     private String password;
+
+    public SignUpForm() {
+    }
 
     public SignUpForm(String firstName, String lastName, String username, String email, String password) {
         this.firstName = firstName;

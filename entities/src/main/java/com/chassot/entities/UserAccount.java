@@ -25,7 +25,7 @@ public class UserAccount implements UserDetails {
     private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+    @JoinTable(name = "ACCOUNT_AUTHORITY", joinColumns = @JoinColumn(name = "USER_ACCOUNT_ID"), inverseJoinColumns = @JoinColumn(name = "USER_AUTHORITY_ID"))
     private Set<UserAuthority> authorities;
 
     public UserAccount() {

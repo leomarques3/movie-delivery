@@ -3,6 +3,7 @@ package com.chassot.auth.server.configuration;
 import com.chassot.auth.server.service.impl.UserDetailsServiceImpl;
 import com.chassot.commons.utils.AuthUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,8 +23,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
+    @Value("${movie-delivery.security.secret}")
+    private String secret;
+
     @Autowired
-    public SecurityConfiguration(UserDetailsServiceImpl userDetailsServiceImpl, CustomAuthenticationEntryPoint customAuthenticationEntryPoint) {
+    public SecurityConfiguration(UserDetailsServiceImpl userDetailsServiceImpl,
+                                 CustomAuthenticationEntryPoint customAuthenticationEntryPoint) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
     }
@@ -43,13 +48,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .cors()
-                .and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests()
-                .antMatchers("/h2-console").permitAll()
-                .anyRequest().authenticated()
-                .and().httpBasic()
-                .authenticationEntryPoint(customAuthenticationEntryPoint);
+                .and()
+                    .csrf()
+                        .disable()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                    .authorizeRequests()
+                        .antMatchers("/h2-console")
+                            .permitAll()
+                        .antMatchers("/auth/signUp")
+                            .permitAll()
+                        .anyRequest()
+                            .authenticated()
+                .and()
+                    .httpBasic()
+                        .authenticationEntryPoint(customAuthenticationEntryPoint);
     }
 
     @Override

@@ -5,21 +5,17 @@ spring:
   application:
     name: auth-server
   datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:mddb
-    username: sa
-    password: sa
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mddb?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: admin
+    password: test
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
-        show-sql: false
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+        show-sql: true
 
 movie-delivery:
   security:
